@@ -30,20 +30,27 @@ export default function ProductsPage() {
       <FiltersBar />
       <SortBar />
 
-      <div style={{ height: "calc(100vh - 160px)" }}>
+      <div
+        style={{ height: "calc(100vh - 160px)" }}
+        className="overflow-x-hidden"
+      >
         <AutoSizer>
           {({ width, height }) => {
-            const columnCount = getColumnCount(width);
-            const columnWidth = width / columnCount;
+            const usableWidth = width - 32;
+            const columnCount = getColumnCount(usableWidth);
 
+            const columnWidth = Math.floor(usableWidth / columnCount);
+            console.log("columnwidth", columnWidth);
             const rowCount = Math.ceil(filteredList.length / columnCount);
 
             return (
               <Grid
+                className="no-x-scroll"
+                style={{ overflowX: "hidden" }}
                 cellRenderer={({ columnIndex, rowIndex, key, style }) => {
                   const index = rowIndex * columnCount + columnIndex;
                   const product = filteredList[index];
-                  if (!product) return null; 
+                  if (!product) return null;
 
                   return (
                     <div key={key} style={{ ...style, padding: 10 }}>
@@ -56,7 +63,7 @@ export default function ProductsPage() {
                 height={height}
                 rowCount={rowCount}
                 rowHeight={ROW_HEIGHT}
-                width={width}
+                width={usableWidth}
               />
             );
           }}
