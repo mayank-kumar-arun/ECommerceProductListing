@@ -4,6 +4,7 @@ import {
   filterByRating,
   applyFilters,
   clearFilters,
+  addtoWhislist,
 } from "../app/productsSlice";
 
 export default function FiltersBar() {
@@ -11,6 +12,8 @@ export default function FiltersBar() {
   const { categories, categoryFilter, ratingFilter } = useSelector(
     (state) => state.products
   );
+
+  const favorites = useSelector((state) => state.favorites.items);
 
   return (
     <div
@@ -64,6 +67,8 @@ export default function FiltersBar() {
         >
           Clear
         </button>
+
+        <button onClick={() => dispatch(addtoWhislist(favorites))}>WHISHLIST</button>
       </div>
     </div>
   );

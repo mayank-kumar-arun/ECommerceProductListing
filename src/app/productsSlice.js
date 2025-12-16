@@ -8,6 +8,7 @@ const initialState = {
   categoryFilter: "All",
   ratingFilter: 0,
   sortOrder: "none",
+  categories: [],
 };
 
 const productsSlice = createSlice({
@@ -48,6 +49,13 @@ const productsSlice = createSlice({
       state.sortOrder = "none";
       state.filteredList = state.list;
     },
+
+    addtoWhislist: (state, payload) => {
+      const items = [...state.list];
+      state.filteredList = items.filter((item) =>
+        payload.payload.includes(item.id)
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -81,6 +89,7 @@ export const {
   sortByPrice,
   applyFilters,
   clearFilters,
+  addtoWhislist,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

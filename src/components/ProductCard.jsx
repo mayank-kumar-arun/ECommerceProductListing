@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
   const favorites = useSelector((state) => state.favorites.items);
 
   const isFav = favorites.includes(product.id);
-
+  
   return (
     <div
       className={`border rounded-lg shadow p-4 flex flex-col relative transition-all duration-300
